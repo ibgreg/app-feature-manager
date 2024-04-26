@@ -28,17 +28,20 @@ public class FeatureToggle {
     @Column(nullable = false)
     private boolean inverted;
 
+    private boolean active;
+
     public FeatureToggle() {
     }
 
-    public FeatureToggle(Long id, String displayName, String technicalName,
-                         LocalDateTime expiresOn, String description, boolean inverted) {
+    public FeatureToggle(Long id, String technicalName, String displayName,
+                         LocalDateTime expiresOn, String description, boolean inverted, boolean active) {
         this.id = id;
-        this.displayName = displayName;
         this.technicalName = technicalName;
+        this.displayName = displayName;
         this.expiresOn = expiresOn;
         this.description = description;
         this.inverted = inverted;
+        this.active = active;
     }
 
     public Long getId() {
@@ -87,6 +90,14 @@ public class FeatureToggle {
 
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
