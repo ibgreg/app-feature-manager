@@ -4,6 +4,7 @@ import com.ibgreg.appfeaturetoggle.entities.FeatureToggle;
 import com.ibgreg.appfeaturetoggle.services.FeatureToggleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,10 +45,18 @@ public class FeatureToggleResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> updateMaintenance(@RequestBody FeatureToggle updatedFeatureToggle, @PathVariable Long id) {
+    public ResponseEntity<Void> updateFeatureToggle(@RequestBody FeatureToggle updatedFeatureToggle, @PathVariable Long id) {
         updatedFeatureToggle.setId(id);
         service.updateFeatureToggle(updatedFeatureToggle);
 
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> archiveFeature(@PathVariable Long id) {
+        service.archiveFeature(id);
+
+        // TODO adjust HTTP codes
+        return ResponseEntity.noContent().build();
     }
 }

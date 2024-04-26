@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,17 @@ public class FeatureToggleService {
         // TODO create validations to improve and restrict the update flow
         FeatureToggle selectedFeatureToggle = findFeatureToggleById(featureToggle.getId());
 
-        return repository.save(selectedFeatureToggle);
+        return repository.save(featureToggle);
+    }
+
+    public void archiveFeature(Long id) {
+        FeatureToggle selectedFeature = findFeatureToggleById(id);
+
+        // Set active status to false and Expires On fields to archive the feature
+        selectedFeature.setActive(false);
+        selectedFeature.setExpiresOn(LocalDateTime.now());
+
+        repository.save(selectedFeature);
     }
 
 }
