@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: app-feature-toggle
+          uri: lb://app-feature-toggle
+          predicates:
+            - Path=/features/**
+management:
+  endpoints:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: "*"
