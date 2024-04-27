@@ -25,7 +25,7 @@ public class UserService {
         User user = repository.findByEmail(email);
 
         if (user == null) {
-            throw new Exception("User not found");
+            throw new IllegalArgumentException("Email not found");
         }
 
         return user;
