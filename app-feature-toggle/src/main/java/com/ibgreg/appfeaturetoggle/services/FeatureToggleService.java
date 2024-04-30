@@ -2,6 +2,7 @@ package com.ibgreg.appfeaturetoggle.services;
 
 import com.ibgreg.appfeaturetoggle.entities.FeatureToggle;
 import com.ibgreg.appfeaturetoggle.repositories.FeatureToggleRepository;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,8 @@ public class FeatureToggleService {
     public FeatureToggle findFeatureToggleById(Long id) {
 
         Optional<FeatureToggle> featureToggle = repository.findById(id);
-        // TODO send an exception message when there is no feature toggle found
-        return featureToggle.orElse(null);
+
+        return featureToggle.orElseThrow(() -> new NotFoundException("Email not found"));
     }
 
     public List<FeatureToggle> findAllFeatureToggles() {
@@ -36,7 +37,6 @@ public class FeatureToggleService {
 
     @Transactional
     public FeatureToggle updateFeatureToggle(FeatureToggle featureToggle) {
-        // TODO create validations to improve and restrict the update flow
         FeatureToggle selectedFeatureToggle = findFeatureToggleById(featureToggle.getId());
 
         return repository.save(featureToggle);
