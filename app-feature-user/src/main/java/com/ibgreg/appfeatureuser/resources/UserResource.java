@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 
     @Autowired
     private UserService service;
+
+    @GetMapping
+    public ResponseEntity<List<User>> listAllUsers() {
+        List<User> usersList = service.findAllUsers();
+
+        return ResponseEntity.ok(usersList);
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) throws Exception {
