@@ -22,11 +22,8 @@ import java.util.Arrays;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    private static final String[] PUBLIC_ACCESS = { "/app-feature-oauth/oauth/token" };
-    private static final String[] ADMIN_ROLE = {
-            "/app-feature-toggle/**",
-            "/app-feature-user/**",
-    };
+    private static final String[] PUBLIC_ACCESS = { "/app-feature-oauth/oauth/token", "/app-feature-toggle/**", "/app-feature-user/**" };
+    private static final String[] ADMIN_ROLE = {};
 
     @Autowired
     private JwtTokenStore tokenStore;
